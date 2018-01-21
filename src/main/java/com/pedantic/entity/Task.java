@@ -37,9 +37,5 @@ public class Task {
         this.dueDate = dueDate;
     }
 
-    public static void main(String[] args) {
-        JsonObject date = Json.createObjectBuilder().add("Date", LocalDate.now().toString()).build();
-        System.out.println(date);
 
-    }
 }
