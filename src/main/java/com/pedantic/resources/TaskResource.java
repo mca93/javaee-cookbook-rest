@@ -1,7 +1,9 @@
 package com.pedantic.resources;
 
 import com.pedantic.entity.Task;
+import com.pedantic.services.UserService;
 
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
@@ -18,6 +20,9 @@ import java.util.Date;
 public class TaskResource {
 
     //https://foobar.com/tasks/api/v1/tasks
+
+    @Inject
+    private UserService userService;
 
     @Context
     UriInfo uriInfo;
@@ -60,10 +65,13 @@ public class TaskResource {
         return null;
     }
 
-    @GET
-    public Task getTaskByIdQueryParam(@QueryParam("id") @DefaultValue("20") int id, @HeaderParam("Content-Type") String contentType) {
-        return null;
-    }
+    //This method unless hosted at a unique path will cause deployment to fail because it is functionally
+    //equivalent to the TaskResource#greet() resource method
+
+//    @GET
+//    public Task getTaskByIdQueryParam(@QueryParam("id") @DefaultValue("20") int id, @HeaderParam("Content-Type") String contentType) {
+//        return null;
+//    }
 
 
 
