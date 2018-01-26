@@ -1,6 +1,10 @@
 package com.pedantic.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.ws.rs.FormParam;
 import java.io.Serializable;
 
@@ -12,11 +16,20 @@ public class User implements Serializable {
     private Long id;
 
 
-    @FormParam("name")
+//    @FormParam("name")
+    @NotEmpty(message = "Name of user must be set")
     private String nameOfUser;
-    @FormParam("email")
+
+
+//    @FormParam("email")
+    @NotEmpty(message = "Email must be set")
+    @Email(message = "Email must be in the form username@domain.com")
     private String email;
-    @FormParam("password")
+
+
+//    @FormParam("password")
+    @NotEmpty(message = "Password must be set.")
+    @Pattern(regexp = "[a-zA-Z][a-zA-Z_0-9]*", message = "Password must start with an alphabet ...")
     private String password;
 
 
