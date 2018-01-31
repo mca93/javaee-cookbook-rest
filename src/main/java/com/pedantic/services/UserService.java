@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,13 @@ public class UserService {
     EntityManager entityManager;
 
     public void saveUser(User user) {
-        entityManager.persist(user);
+
+        if (user.getId() == null) {
+            entityManager.persist(user);
+
+        } else {
+            entityManager.merge(user);
+        }
     }
 
 
@@ -49,6 +56,13 @@ public class UserService {
 
     public User getUserById(Long id) {
         return entityManager.find(User.class, id);
+    }
+
+    public String getFileExtension(File file) {
+        String fileName = file.getName();
+        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        else return "";
     }
 
 }

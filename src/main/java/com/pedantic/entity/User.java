@@ -32,6 +32,10 @@ public class User implements Serializable {
     @Pattern(regexp = "[a-zA-Z][a-zA-Z_0-9]*", message = "Password must start with an alphabet ...")
     private String password;
 
+    private String fileName;
+
+    @Lob
+    private byte[] picture;
 
     public String getNameOfUser() {
         return nameOfUser;
@@ -57,6 +61,13 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
 
     public Long getId() {
         return id;
@@ -64,5 +75,13 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }
