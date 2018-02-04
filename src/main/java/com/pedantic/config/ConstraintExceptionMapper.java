@@ -21,9 +21,9 @@ public class ConstraintExceptionMapper implements ExceptionMapper<ConstraintViol
         final Map<String, String> errors = new HashMap<>();
         for (ConstraintViolation vi : e.getConstraintViolations()) {
             String message = vi.getMessage();
-            String propertyName = vi.getPropertyPath().toString().split("\\.")[2];
+            String propertyName = vi.getPropertyPath().toString();
 
-            errors.put(message, propertyName);
+            errors.put(propertyName, message);
         }
 
         return Response.status(Response.Status.PRECONDITION_FAILED)

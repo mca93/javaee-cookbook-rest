@@ -4,6 +4,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 
@@ -17,7 +18,7 @@ public class ServerResponseFilter implements ContainerResponseFilter {
         if (requestContext.getMethod().equals("GET")) {
             CacheControl cacheControl = new CacheControl();
             cacheControl.setMaxAge(150);
-            responseContext.getHeaders().add("Cache-Control", cacheControl);
+//            responseContext.getHeaders().add("Cache-Control", cacheControl);
 
         }
 

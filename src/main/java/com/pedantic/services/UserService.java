@@ -1,8 +1,10 @@
 package com.pedantic.services;
 
+import com.pedantic.config.SecurityUtil;
 import com.pedantic.entity.User;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -17,9 +19,14 @@ public class UserService {
     @PersistenceContext
     EntityManager entityManager;
 
+    @Inject
+    SecurityUtil securityUtil;
+
     public void saveUser(User user) {
 
         if (user.getId() == null) {
+            user.setPassword(securityUtil.encodeText(user.getPassword()));
+
             entityManager.persist(user);
 
         } else {
@@ -63,6 +70,13 @@ public class UserService {
         if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
             return fileName.substring(fileName.lastIndexOf(".") + 1);
         else return "";
+    }
+
+
+    public User findUserByCredentials(String email, String password) {
+        return entityManager.createNamedQuery(User.FIND_USER_BY_CREDENTIALS, User.class).setParameter("email", email)
+                .setParameter("password", securityUtil.encodeText(password)).getSingleResult();
+
     }
 
 }

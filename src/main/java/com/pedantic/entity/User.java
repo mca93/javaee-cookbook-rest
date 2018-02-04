@@ -10,7 +10,10 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "application_user")
+@NamedQuery(name = User.FIND_USER_BY_CREDENTIALS, query = "select  u from User u where u.email = :email and u.password = :password")
 public class User implements Serializable {
+
+    public static final String FIND_USER_BY_CREDENTIALS = "findUserByEmailPassword";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -29,7 +32,7 @@ public class User implements Serializable {
 
 //    @FormParam("password")
     @NotEmpty(message = "Password must be set.")
-    @Pattern(regexp = "[a-zA-Z][a-zA-Z_0-9]*", message = "Password must start with an alphabet ...")
+//    @Pattern(regexp = "[a-zA-Z][a-zA-Z_0-9]*", message = "Password must start with an alphabet ...")
     private String password;
 
     private String fileName;
